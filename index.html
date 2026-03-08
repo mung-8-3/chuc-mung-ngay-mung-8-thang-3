@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>8/3 Special Journal - For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #f2efeb; --paper: #fffcf2; --pink-accent: #fb6f92; --vintage-gold: #d4a373; --text-main: #1a1a1a; }
+        body { background-color: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; perspective: 2000px; font-family: 'Quicksand', sans-serif; overflow: hidden; touch-action: pan-y; }
+        
+        /* Cánh hoa rơi nhẹ nhàng */
+        .petal { position: fixed; top: -10%; background-color: #ffc2d1; border-radius: 150% 0 150% 0; opacity: 0.5; pointer-events: none; z-index: 2000; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        
+        .notebook-container { position: relative; width: 90vw; max-width: 400px; height: 75vh; max-height: 600px; transform-style: preserve-3d; }
+        .spine-rings { position: absolute; left: -10px; top: 5%; width: 30px; height: 90%; z-index: 1000; display: flex; flex-direction: column; justify-content: space-around; }
+        .ring { width: 35px; height: 8px; background: linear-gradient(to right, #7f8c8d, #ecf0f1, #7f8c8d); border-radius: 10px; box-shadow: 1px 2px 3px rgba(0,0,0,0.2); }
+        .book { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+        .page { position: absolute; width: 100%; height: 100%; transform-origin: left; transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; padding: 35px 25px 25px 45px; box-sizing: border-box; background: var(--paper); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 5px 15px 15px 5px; overflow: hidden; background-image: radial-gradient(#d4a373 0.5px, transparent 0.5px); background-size: 25px 25px; }
+        .back { transform: rotateY(-180deg); background-color: #fffdf9; }
+        .page.flipped { transform: rotateY(-180deg); }
+        
+        .cover-front { background: #faedcd !important; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 10px solid var(--vintage-gold); }
+        .cover-box { border: 1px solid #582f0e; padding: 15px; background: rgba(255,255,255,0.2); text-align: center; }
+        .cover-front::after { content: ''; position: absolute; right: 15px; top: 0; width: 4px; height: 100%; background: #432818; opacity: 0.8; }
+
+        .item { position: absolute; z-index: 5; }
+        .handwritten { font-family: 'Dancing Script', cursive; color: var(--pink-accent); font-size: 1.5rem; max-width: 80%; }
+        .typewriter-black { font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #1a1a1a; line-height: 1.4; max-width: 75%; background: transparent; }
+        .polaroid { background: white; padding: 5px 5px 15px 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #eee; text-align: center; }
+        .polaroid img { width: 100%; height: auto; max-height: 120px; object-fit: cover; }
+        .sticker { position: absolute; font-size: 30px; opacity: 0.3; z-index: 1; }
+        .journal-date { font-family: 'Special Elite', cursive; font-size: 0.6rem; color: var(--vintage-gold); position: absolute; top: 15px; right: 15px; }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+</audio>
+
+<div class="notebook-container">
+    <div class="spine-rings"><script>for(let i=0; i<12; i++) document.write('<div class="ring"></div>');</script></div>
+    <div class="book" id="scrapbook">
+        <div class="page">
+            <div class="front cover-front">
+                <div class="cover-box">
+                    <h1 style="font-family:'Dancing Script'; font-size:2.5rem; margin:0; color:#582f0e;">Memories</h1>
+                    <p style="font-family:'Special Elite'; font-size:0.7rem; letter-spacing:2px; color:#582f0e;">8 MARCH . JOURNAL</p>
+                </div>
+            </div>
+            <div class="back" id="p-back-0"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- 1. DÁN LINK ẢNH TỪ POSTIMAGES VÀO ĐÂY ---
+    const myPhotos = [
+        "https://picsum.photos/seed/1/150/150", 
+        "https://picsum.photos/seed/2/150/150", 
+        "https://picsum.photos/seed/3/150/150"
+    ];
+
+    // --- 2. CÁC CÂU CẢM NGHĨ (CHỮ ĐEN) ---
+    const journalThoughts = [
+        "Anh nhớ nụ cười của em hôm ấy. Nó nhẹ nhàng nhưng đủ làm sáng bừng cả ngày.",
+        "Có những điều không thể nói hết bằng lời, anh gửi chúng vào từng trang giấy này.",
+        "Chúc em luôn rạng rỡ. Chỉ cần là chính em thôi đã đủ tuyệt vời rồi.",
+        "Em là phiên bản giới hạn tuyệt vời nhất mà anh từng gặp. Chúc mừng 8/3!",
+        "Thế giới này đôi khi ồn ào, mong bên cạnh anh, em sẽ thấy bình yên.",
+        "Cảm ơn em đã kiên nhẫn, cùng anh đi qua những ngày nắng gắt và đêm mưa."
+    ];
+
+    const shortHand = ["Yêu em.", "Bình yên.", "Mãi bên nhau.", "Tuyệt nhất!", "Thương em."];
+    const stickers = ["🌸", "✨", "🍃", "🌷", "🦋", "☀️", "💖"];
+
+    function createPetals() {
+        for (let i = 0; i < 15; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = petal.style.height = Math.random() * 10 + 8 + 'px';
+            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(petal);
+        }
+    }
+    createPetals();
+
+    function generateContent(index) {
+        const sections = [1, 2, 3].sort(() => Math.random() - 0.5); // Bố cục ngẫu nhiên hoàn toàn
+        let html = `<div class="journal-date">March 8, 2026 | P.${index}</div>`;
+
+        sections.forEach((section, i) => {
+            const top = 15 + (i * 25) + (Math.random() * 5);
+            const side = Math.random() > 0.5 ? 'left:15%' : 'right:10%';
+            const rot = Math.random() * 8 - 4;
+
+            if (section === 1) {
+                html += `<div class="item polaroid" style="top:${top}%; right:12%; width:130px; transform:rotate(${rot}deg)">
+                            <img src="${myPhotos[index % myPhotos.length]}">
+                            <p style="font-family:'Special Elite'; font-size:0.5rem; margin:5px 0 0 0;">Lovely Day</p>
+                         </div>`;
+            } else if (section === 2) {
+                html += `<div class="item typewriter-black" style="top:${top}%; left:15%; transform:rotate(${rot/2}deg)">
+                            ${journalThoughts[index % journalThoughts.length]}
+                         </div>`;
+            } else {
+                html += `<div class="item handwritten" style="top:${top+5}%; left:20%; transform:rotate(${rot}deg)">
+                            ${shortHand[index % shortHand.length]}
+                         </div>`;
+            }
+        });
+        html += `<div class="sticker" style="top:${Math.random()*70+10}%; left:${Math.random()*70}%;">${stickers[index % stickers.length]}</div>`;
+        return html;
+    }
+
+    const scrapbook = document.getElementById('scrapbook');
+    for(let i=1; i<=11; i++) {
+        const page = document.createElement('div');
+        page.className = 'page';
+        page.innerHTML = `<div class="front">${generateContent(i*2)}</div><div class="back">${generateContent(i*2+1)}</div>`;
+        scrapbook.appendChild(page);
+    }
+
+    const last = document.createElement('div');
+    last.className = 'page';
+    last.innerHTML = `<div class="front" style="background:#fb6f92;color:white;display:flex;justify-content:center;align-items:center;border-radius:0 15px 15px 0;"><h1>Forever ❤️</h1></div><div class="back" style="background:#faedcd;display:flex;justify-content:center;align-items:center;border-radius:15px 0 0 15px;"><h1>Happy 8/3!</h1></div>`;
+    scrapbook.appendChild(last);
+
+    const pages = document.querySelectorAll('.page');
+    pages.forEach((page, index) => {
+        page.style.zIndex = pages.length - index;
+        page.addEventListener('click', () => {
+            document.getElementById('bgMusic').play();
+            if (page.classList.contains('flipped')) {
+                page.classList.remove('flipped');
+                setTimeout(() => { page.style.zIndex = pages.length - index; }, 750);
+            } else {
+                page.classList.add('flipped');
+                page.style.zIndex = 100 + index;
+            }
+        });
+    });
+</script>
+</body>
+</html>
