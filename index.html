@@ -9,7 +9,6 @@
         :root { --bg: #f2efeb; --paper: #fffcf2; --pink-accent: #fb6f92; --vintage-gold: #d4a373; --text-main: #1a1a1a; }
         body { background-color: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; perspective: 2000px; font-family: 'Quicksand', sans-serif; overflow: hidden; touch-action: pan-y; }
         
-        /* Cánh hoa rơi nhẹ nhàng */
         .petal { position: fixed; top: -10%; background-color: #ffc2d1; border-radius: 150% 0 150% 0; opacity: 0.5; pointer-events: none; z-index: 2000; animation: fall linear infinite; }
         @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
         
@@ -22,17 +21,19 @@
         .back { transform: rotateY(-180deg); background-color: #fffdf9; }
         .page.flipped { transform: rotateY(-180deg); }
         
-        .cover-front { background: #faedcd !important; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 10px solid var(--vintage-gold); }
+        .cover-front { background: #faedcd !important; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 10px solid var(--vintage-gold); position: relative;}
         .cover-box { border: 1px solid #582f0e; padding: 15px; background: rgba(255,255,255,0.2); text-align: center; }
-        .cover-front::after { content: ''; position: absolute; right: 15px; top: 0; width: 4px; height: 100%; background: #432818; opacity: 0.8; }
+        .cover-front::after { content: ''; position: absolute; right: 15px; top: 0; width: 4px; height: 100%; background: #432818; opacity: 0.8; z-index: 10; }
 
         .item { position: absolute; z-index: 5; }
         .handwritten { font-family: 'Dancing Script', cursive; color: var(--pink-accent); font-size: 1.5rem; max-width: 80%; }
         .typewriter-black { font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #1a1a1a; line-height: 1.4; max-width: 75%; background: transparent; }
         .polaroid { background: white; padding: 5px 5px 15px 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #eee; text-align: center; }
-        .polaroid img { width: 100%; height: auto; max-height: 120px; object-fit: cover; }
+        .polaroid img { width: 100%; height: 140px; object-fit: cover; }
         .sticker { position: absolute; font-size: 30px; opacity: 0.3; z-index: 1; }
         .journal-date { font-family: 'Special Elite', cursive; font-size: 0.6rem; color: var(--vintage-gold); position: absolute; top: 15px; right: 15px; }
+        
+        .hint { position: fixed; bottom: 10px; font-family: 'Special Elite'; font-size: 0.7rem; opacity: 0.5; width: 100%; text-align: center; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -56,25 +57,28 @@
     </div>
 </div>
 
+<div class="hint">TAP LỀ PHẢI ĐỂ TIẾN - LỀ TRÁI ĐỂ LÙI</div>
+
 <script>
     // --- 1. DÁN LINK ẢNH TỪ POSTIMAGES VÀO ĐÂY ---
     const myPhotos = [
         "https://picsum.photos/seed/1/150/150", 
         "https://picsum.photos/seed/2/150/150", 
-        "https://picsum.photos/seed/3/150/150"
+        "https://picsum.photos/seed/3/150/150", 
+        "https://picsum.photos/seed/4/150/150"
     ];
 
-    // --- 2. CÁC CÂU CẢM NGHĨ (CHỮ ĐEN) ---
+    // --- 2. CÁC CÂU CẢM NGHĨ ---
     const journalThoughts = [
-        "Anh nhớ nụ cười của em hôm ấy. Nó nhẹ nhàng nhưng đủ làm sáng bừng cả ngày.",
-        "Có những điều không thể nói hết bằng lời, anh gửi chúng vào từng trang giấy này.",
-        "Chúc em luôn rạng rỡ. Chỉ cần là chính em thôi đã đủ tuyệt vời rồi.",
-        "Em là phiên bản giới hạn tuyệt vời nhất mà anh từng gặp. Chúc mừng 8/3!",
-        "Thế giới này đôi khi ồn ào, mong bên cạnh anh, em sẽ thấy bình yên.",
-        "Cảm ơn em đã kiên nhẫn, cùng anh đi qua những ngày nắng gắt và đêm mưa."
+        "Đây là bạn tôi, một con người có tuổi thơ vô cùng “cơ cực”.",
+        "Ngay từ nhỏ đã không có chồng. Đến khi ba mẹ kết hôn cũng không thèm hỏi ý kiến cô ấy một câu. Ngày chào đời thì vốn liếng bằng đúng bằng Không.",
+        "Suốt một năm trời còn không nói chuyện được với ai, ngày nào cũng chỉ biết lấy nước mắt rửa mặt. Nghĩ lại đúng là hành trình trưởng thành đầy gian nan.",
+        "Chỉ tiếc là lúc đó tôi và cô ấy chưa quen nhau. Nếu có kiếp sau, dù phải bò thì tôi cũng bò tới bên bạn để che nắng che mưa cho bạn.",
+        "Một người bạn tốt và tận tâm như tôi thật sự rất hiếm trên đời.",
+        "Vì vậy nhớ nhé, sau này mà giàu rồi thì chuyển cho tôi một công ty là được, coi như trả trước tiền “tình nghĩa kiếp sau”."
     ];
 
-    const shortHand = ["Yêu em.", "Bình yên.", "Mãi bên nhau.", "Tuyệt nhất!", "Thương em."];
+    const shortHand = ["Hạnh phúc.", "Bình yên.", "Mãi bên nhau bạn nhé.", "Tuyệt vời nhất!", "Bạn là số một."];
     const stickers = ["🌸", "✨", "🍃", "🌷", "🦋", "☀️", "💖"];
 
     function createPetals() {
@@ -90,7 +94,7 @@
     createPetals();
 
     function generateContent(index) {
-        const sections = [1, 2, 3].sort(() => Math.random() - 0.5); // Bố cục ngẫu nhiên hoàn toàn
+        const sections = [1, 2, 3].sort(() => Math.random() - 0.5);
         let html = `<div class="journal-date">March 8, 2026 | P.${index}</div>`;
 
         sections.forEach((section, i) => {
@@ -127,18 +131,25 @@
 
     const last = document.createElement('div');
     last.className = 'page';
-    last.innerHTML = `<div class="front" style="background:#fb6f92;color:white;display:flex;justify-content:center;align-items:center;border-radius:0 15px 15px 0;"><h1>Forever ❤️</h1></div><div class="back" style="background:#faedcd;display:flex;justify-content:center;align-items:center;border-radius:15px 0 0 15px;"><h1>Happy 8/3!</h1></div>`;
+    last.innerHTML = `<div class="front" style="background:#fb6f92;color:white;display:flex;justify-content:center;align-items:center;border-radius:0 15px 15px 0;"><h1>Chúc bạn tất cả, Trừ vất vả ❤️</h1></div><div class="back" style="background:#faedcd;display:flex;justify-content:center;align-items:center;border-radius:15px 0 0 15px;"><h1>Chúc mừng ngày 8/3!</h1></div>`;
     scrapbook.appendChild(last);
 
     const pages = document.querySelectorAll('.page');
     pages.forEach((page, index) => {
         page.style.zIndex = pages.length - index;
-        page.addEventListener('click', () => {
+        
+        page.addEventListener('click', (e) => {
             document.getElementById('bgMusic').play();
-            if (page.classList.contains('flipped')) {
+            const clickX = e.clientX - page.getBoundingClientRect().left;
+            const pageWidth = page.offsetWidth;
+
+            // Nếu chạm lề trái (35%) và đang lật -> Quay lại
+            if (clickX < pageWidth * 0.35 && page.classList.contains('flipped')) {
                 page.classList.remove('flipped');
                 setTimeout(() => { page.style.zIndex = pages.length - index; }, 750);
-            } else {
+            } 
+            // Nếu chạm lề phải/giữa -> Tiến tới
+            else if (clickX >= pageWidth * 0.35 && !page.classList.contains('flipped')) {
                 page.classList.add('flipped');
                 page.style.zIndex = 100 + index;
             }
