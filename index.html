@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>8/3 Special Memories Journal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg: #a1d6f2; /* Tông màu xanh dương nhạt phù hợp với Capoo */
+            --bg: #a1d6f2; 
             --paper: rgba(255, 252, 242, 0.92); 
             --pink-accent: #fb6f92; 
         }
@@ -32,16 +32,15 @@
             position: absolute;
             background-size: contain; background-repeat: no-repeat;
             opacity: 0;
-            /* Bé lại và mở mờ mờ (Bloom) */
             filter: blur(2px) drop-shadow(0 0 10px rgba(161, 214, 242, 0.7)); 
             animation: capoo-cycle 9s infinite linear;
             user-select: none;
         }
         @keyframes capoo-cycle {
             0% { transform: scale(0) rotate(0deg); opacity: 0; }
-            30% { opacity: 0.8; transform: scale(0.9) rotate(15deg); } /* Xuất hiện nhẹ */
+            30% { opacity: 0.8; transform: scale(0.9) rotate(15deg); } 
             70% { opacity: 0.6; transform: scale(0.85) rotate(30deg); } 
-            100% { transform: scale(0.5) rotate(45deg); opacity: 0; } /* Biến mất */
+            100% { transform: scale(0.5) rotate(45deg); opacity: 0; } 
         }
         
         .notebook-container { position: relative; width: 850px; height: 600px; transform: scale(0.48); transform-style: preserve-3d; transition: transform 0.5s ease; z-index: 10; }
@@ -74,7 +73,8 @@
         .cover-ribbon { position: absolute; right: 35px; top: 0; width: 15px; height: 100%; background: #3e2723; box-shadow: 2px 0 5px rgba(0,0,0,0.4); z-index: 10; }
 
         .item { position: absolute; width: 85%; }
-        .handwritten { font-family: 'Caveat', cursive; color: var(--pink-accent); font-size: 2.2rem; line-height: 1.2; z-index: 10; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
+        /* Áp dụng font chữ hồng mới */
+        .handwritten { font-family: 'Dancing Script', cursive; color: var(--pink-accent); font-size: 2.2rem; line-height: 1.2; z-index: 10; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.05); }
         .typewriter-black { font-family: 'Courier Prime', monospace; font-size: 1.05rem; color: #1a1a1a; line-height: 1.5; z-index: 5; }
         
         .polaroid { background: white; padding: 12px 12px 35px 12px; box-shadow: 0 12px 25px rgba(0,0,0,0.2); border: 1px solid #eee; text-align: center; width: 185px; z-index: 8; }
@@ -101,10 +101,10 @@
             <div class="front cover-front">
                 <div class="cover-ribbon"></div>
                 <div class="cover-title-box">
-                    <h1 style="font-family:'Caveat', cursive; font-size:5.5rem; margin:0; color:#3e2723;">Memories</h1>
+                    <h1 style="font-family:'Dancing Script', cursive; font-size:5.5rem; margin:0; color:#3e2723;">Memories</h1>
                     <p style="font-family:'Courier Prime', monospace; font-size:1rem; letter-spacing:4px; color:#3e2723; margin-top:5px;">VOLUME 08.03.2026</p>
                 </div>
-                <p style="margin-top:35px; font-family:'Caveat', cursive; font-size:2rem; color:#3e2723; font-weight:700;">Dành cho người bạn cơ cực ❤️</p>
+                <p style="margin-top:35px; font-family:'Dancing Script', cursive; font-size:2.2rem; color:#3e2723; font-weight:700;">Dành cho người bạn cơ cực ❤️</p>
             </div>
             <div class="back" style="background: #fffdf9;"></div>
         </div>
@@ -114,13 +114,6 @@
 <div class="hint">TAP PHẢI ĐỂ TIẾN - TAP TRÁI ĐỂ QUAY LẠI</div>
 
 <script>
-    const myPhotos = {
-        p2: "1.jpeg", p3: "2.jpeg", p4: "3.jpeg", p5: "4.jpeg", p6: "5.jpeg", p7: "6.jpeg",
-        p8: "7.jpeg", p9: "8.jpeg", p10: "9.jpeg", p11: "10.jpeg", p12: "11.jpeg", p13: "12.jpeg",
-        p14: "13.jpeg", p15: "14.jpeg", p16: "15.jpeg", p17: "16.jpeg", p18: "17.jpeg", p19: "18.jpeg",
-        p20: "19.jpeg", p21: "20.jpeg", p22: "21.jpeg", p23: "22.jpeg"
-    };
-
     const thoughts = [
         "Một người bạn tốt và tận tâm như tôi thật sự rất hiếm trên đời.",
         "Vì vậy nhớ nhé, giàu rồi thì chuyển cho tôi một công ty là được, coi như trả tiền tình nghĩa kiếp sau.",
@@ -150,40 +143,33 @@
     const decoIcons = ["🌸", "✨", "☕", "📜", "🎈", "Tulip", "🦋", "☀️", "💖"];
     const tapeColors = ["rgba(251, 111, 146, 0.4)", "rgba(141, 110, 99, 0.4)", "rgba(212, 163, 115, 0.4)"];
 
-    // SỬ DỤNG NHIỀU LOẠI GIFT MÈO CAPOO KHÁC NHAU CÓ NỀN TRANSPARENT
     const capooSprites = ["https://media2.giphy.com/media/XlZGsZ8jflqn21UhZG/giphy.gif", "https://media3.giphy.com/media/r5AqZqd4TZ7KqmFQEx/source.gif", "https://media4.giphy.com/media/Z3Op6V4KdP7ZQWft5O/source.gif", "https://media.tenor.com/mTLDE-FgUgUAAAAM/bugcat-capoo-dancing.gif", "https://media.tenor.com/UcTNBhUw5BcAAAAj/capoo-dance.gif", "https://media.tenor.com/he7yRLU18rsAAAAj/bugcat-capoo.gif"];
 
     function createPetals() { for (let i = 0; i < 20; i++) { const petal = document.createElement('div'); petal.className = 'petal'; petal.style.left = Math.random() * 100 + 'vw'; petal.style.width = petal.style.height = Math.random() * 12 + 8 + 'px'; petal.style.animationDuration = Math.random() * 6 + 6 + 's'; petal.style.animationDelay = Math.random() * 5 + 's'; document.body.appendChild(petal); } }
     createPetals();
 
-    // HÀM TẠO NHIỀU GIFT MÈO CAPOO BÉ LẠI BÊN BACKGROUND (BLOOM BLUR)
     function createCapooBlur() {
         const container = document.getElementById('capooBlurredContainer');
-        for (let i = 0; i < 15; i++) { // Số lượng 15 con trên background
+        for (let i = 0; i < 15; i++) { 
             const capoo = document.createElement('div');
             capoo.className = 'capoo';
-            // Random nhiều loại gift
             capoo.style.backgroundImage = `url(${capooSprites[Math.floor(Math.random() * capooSprites.length)]})`;
-            // Random vị trí và kích thước bé lại (80-120px)
             capoo.style.left = Math.random() * 100 + 'vw';
             capoo.style.top = Math.random() * 100 + 'vh';
             const size = Math.random() * 40 + 80 + 'px';
             capoo.style.width = capoo.style.height = size;
-            // Random thời gian trễ và tốc độ animation
             capoo.style.animationDelay = Math.random() * 12 + 's';
-            capoo.style.animationDuration = Math.random() * 4 + 7 + 's'; // Từ 7-11s
+            capoo.style.animationDuration = Math.random() * 4 + 7 + 's'; 
             container.appendChild(capoo);
         }
     }
     createCapooBlur();
 
     function generateContent(pIdx) {
-        // --- THUẬT TOÁN "SAFE ZONES" CHỐNG ĐÈ TUYỆT ĐỐI ---
         const isRightPage = pIdx % 2 === 0; 
         const safeLeft = isRightPage ? "45px" : "25px";
         const safeRight = isRightPage ? "25px" : "45px";
 
-        // 4 Bố cục phân vùng an toàn tuyệt đối
         const layouts = [
             { p: `top: 8%; left: ${safeLeft};`, tw: `top: 55%; right: ${safeRight}; text-align: right;`, h: `bottom: 8%; left: ${safeLeft};` },
             { tw: `top: 10%; left: ${safeLeft}; text-align: left;`, h: `top: 35%; left: ${safeLeft};`, p: `bottom: 5%; right: ${safeRight};` },
@@ -195,20 +181,20 @@
         let html = `<div class="journal-date">P.${pIdx} | 08.03.2026</div>`;
         const tapeColor = tapeColors[Math.floor(Math.random() * tapeColors.length)];
         
-        // 1. Polaroid
+        // --- RANDOM ẢNH TỪ 1 ĐẾN 17 (.jpeg) ---
+        const randomImgNum = Math.floor(Math.random() * 17) + 1;
+        const imgSrc = randomImgNum + ".jpeg";
+        
         html += `<div class="item polaroid" style="${L.p} transform:rotate(${Math.random()*10-5}deg);">
                     <div class="washi-tape" style="top:-12px; left:20%; background:${tapeColor}; transform:rotate(${Math.random()*20-10}deg);"></div>
-                    <img src="${myPhotos["p" + pIdx] || '1.jpg'}">
-                    <p style="font-family:'Courier Prime', monospace; font-size:0.75rem; margin:10px 0 0 0; font-weight:bold;">LOVELY DAY</p>
+                    <img src="${imgSrc}" onerror="this.src='1.jpeg'">
+                    <p style="font-family:'Courier Prime', monospace; font-size:0.75rem; margin:10px 0 0 0; font-weight:bold;">MEMORIES</p>
                  </div>`;
         
-        // 2. Chữ đen
         html += `<div class="item typewriter-black" style="${L.tw} transform:rotate(${Math.random()*4-2}deg);">${thoughts[pIdx - 2] || thoughts[0]}</div>`;
         
-        // 3. Chữ hồng
         html += `<div class="item handwritten" style="${L.h} transform:rotate(${Math.random()*10-5}deg);">${shortHand[pIdx % shortHand.length]}</div>`;
         
-        // 4. Icons trang trí ngẫu nhiên
         for(let i=0; i<2; i++) {
             html += `<div class="item" style="top:${Math.random()*80+10}%; left:${Math.random()*80}%; font-size:30px; opacity:0.3; z-index:1;">${decoIcons[Math.floor(Math.random()*decoIcons.length)]}</div>`;
         }
@@ -225,12 +211,11 @@
         scrapbook.appendChild(page);
     }
 
-    // --- TRANG KẾT ĐƯỢC PHÓNG TO VÀ THÊM CÂU CHÚC YÊU CẦU ---
     const last = document.createElement('div');
     last.className = 'page';
     last.innerHTML = `<div class="front" style="background:#fb6f92; color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border-radius:0 15px 15px 0; padding: 30px;">
             <div class="washi-tape" style="top:20px; background:rgba(255,255,255,0.3); transform:rotate(-5deg);"></div>
-            <h2 style="font-family:'Quicksand', sans-serif; font-size:4rem; margin:0 0 50px 0; line-height: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); font-weight: 700;">Happy 8/3!</h2>
+            <h2 style="font-family:'Quicksand', sans-serif; font-size:4rem; margin:0 0 50px 0; line-height: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); font-weight: 700;">Happy 8/3! ❤️</h2>
             <p style="font-family:'Courier Prime', monospace; font-size:1.1rem; color:rgba(255,255,255,0.9); margin:0; white-space: nowrap; font-weight: bold;">chúc bạn tất cả trừ vất vả💖</p>
         </div><div class="back" style="background:#faedcd; border-radius:15px 0 0 15px;"></div>`;
     scrapbook.appendChild(last);
