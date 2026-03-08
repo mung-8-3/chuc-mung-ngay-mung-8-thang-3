@@ -3,121 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>8/3 Special Journal - For You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <title>8/3 Special Memories Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Quicksand:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #f2efeb; --paper: #fffcf2; --pink-accent: #fb6f92; --vintage-gold: #d4a373; --text-main: #1a1a1a; }
-        body { background-color: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; perspective: 2000px; font-family: 'Quicksand', sans-serif; overflow: hidden; touch-action: pan-y; }
+        :root { 
+            --bg: #d7ccc8; 
+            --paper: rgba(255, 252, 242, 0.90); /* TĂNG ĐỘ TRONG của trang giấy */
+            --pink-accent: #fb6f92; 
+        }
+
+        body { 
+            background-color: var(--bg); margin: 0; display: flex; justify-content: center; 
+            align-items: center; min-height: 100vh; perspective: 2500px; 
+            font-family: 'Quicksand', sans-serif; overflow: hidden; 
+            background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+        }
         
-        .petal { position: fixed; top: -10%; background-color: #ffc2d1; border-radius: 150% 0 150% 0; opacity: 0.5; pointer-events: none; z-index: 2000; animation: fall linear infinite; }
-        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        .petal { position: fixed; top: -10%; background-color: #ffc2d1; border-radius: 150% 0 150% 0; opacity: 0.6; pointer-events: none; z-index: 2000; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
         
-        .notebook-container { position: relative; width: 90vw; max-width: 400px; height: 75vh; max-height: 600px; transform-style: preserve-3d; }
-        .spine-rings { position: absolute; left: -10px; top: 5%; width: 30px; height: 90%; z-index: 1000; display: flex; flex-direction: column; justify-content: space-around; }
-        .ring { width: 35px; height: 8px; background: linear-gradient(to right, #7f8c8d, #ecf0f1, #7f8c8d); border-radius: 10px; box-shadow: 1px 2px 3px rgba(0,0,0,0.2); }
-        .book { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
-        .page { position: absolute; width: 100%; height: 100%; transform-origin: left; transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; padding: 35px 25px 25px 45px; box-sizing: border-box; background: var(--paper); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 5px 15px 15px 5px; overflow: hidden; background-image: radial-gradient(#d4a373 0.5px, transparent 0.5px); background-size: 25px 25px; }
-        .back { transform: rotateY(-180deg); background-color: #fffdf9; }
+        .notebook-container { position: relative; width: 850px; height: 600px; transform: scale(0.48); transform-style: preserve-3d; transition: transform 0.5s ease; }
+        @media (min-width: 600px) { .notebook-container { transform: scale(0.75); } }
+        @media (min-width: 1000px) { .notebook-container { transform: scale(1); } }
+        
+        .spine-rings { position: absolute; left: 50%; top: 40px; width: 40px; height: 520px; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; justify-content: space-around; pointer-events: none; }
+        .ring { width: 55px; height: 12px; background: linear-gradient(to right, #3e2723, #d7ccc8, #3e2723); border-radius: 10px; box-shadow: 2px 3px 6px rgba(0,0,0,0.4); }
+        
+        .book { width: 425px; height: 100%; position: absolute; left: 50%; transform-style: preserve-3d; }
+        .page { position: absolute; width: 100%; height: 100%; transform-origin: left; transform-style: preserve-3d; transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        
+        .front, .back { 
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+            padding: 50px; box-sizing: border-box; background: var(--paper); 
+            box-shadow: inset 3px 0 20px rgba(0,0,0,0.1), 0 5px 30px rgba(0,0,0,0.2); 
+            border-radius: 0 15px 15px 0; overflow: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+        }
+
+        .back { transform: rotateY(-180deg); border-radius: 15px 0 0 15px; padding-right: 70px; background-color: #fffdf9; border-left: 1px solid #ddd; }
+        .front { padding-left: 70px; border-right: 1px solid #eee; }
         .page.flipped { transform: rotateY(-180deg); }
         
-        .cover-front { background: #faedcd !important; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 10px solid var(--vintage-gold); position: relative;}
-        .cover-box { border: 1px solid #582f0e; padding: 15px; background: rgba(255,255,255,0.2); text-align: center; }
-        .cover-front::after { content: ''; position: absolute; right: 15px; top: 0; width: 4px; height: 100%; background: #432818; opacity: 0.8; z-index: 10; }
+        .cover-front { 
+            background: #faedcd !important; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 18px solid #5d4037; 
+            background-image: url('https://www.transparenttextures.com/patterns/woven.png') !important;
+        }
+        .cover-title-box { border: 4px double #5d4037; padding: 30px; text-align: center; background: rgba(255, 255, 255, 0.5); }
+        .cover-ribbon { position: absolute; right: 35px; top: 0; width: 15px; height: 100%; background: #3e2723; box-shadow: 2px 0 5px rgba(0,0,0,0.4); z-index: 10; }
 
-        .item { position: absolute; z-index: 5; }
-        .handwritten { font-family: 'Dancing Script', cursive; color: var(--pink-accent); font-size: 1.5rem; max-width: 80%; }
-        .typewriter-black { font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #1a1a1a; line-height: 1.4; max-width: 75%; background: transparent; }
-        .polaroid { background: white; padding: 5px 5px 15px 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #eee; text-align: center; }
-        .polaroid img { width: 100%; height: 140px; object-fit: cover; }
-        .sticker { position: absolute; font-size: 30px; opacity: 0.3; z-index: 1; }
-        .journal-date { font-family: 'Special Elite', cursive; font-size: 0.6rem; color: var(--vintage-gold); position: absolute; top: 15px; right: 15px; }
+        .item { position: absolute; width: 85%; }
+        .handwritten { font-family: 'Charm', cursive; color: var(--pink-accent); font-size: 1.8rem; line-height: 1.2; z-index: 10; }
+        .typewriter-black { font-family: 'Special Elite', cursive; font-size: 1.1rem; color: #1a1a1a; line-height: 1.5; z-index: 5; }
         
-        .hint { position: fixed; bottom: 10px; font-family: 'Special Elite'; font-size: 0.7rem; opacity: 0.5; width: 100%; text-align: center; pointer-events: none; }
+        .polaroid { background: white; padding: 12px 12px 35px 12px; box-shadow: 0 12px 25px rgba(0,0,0,0.2); border: 1px solid #eee; text-align: center; width: 185px; z-index: 8; }
+        .polaroid img { width: 100%; height: 145px; object-fit: cover; }
+        
+        .washi-tape { position: absolute; width: 80px; height: 25px; z-index: 15; opacity: 0.7; background: rgba(251, 111, 146, 0.4); box-shadow: 1px 1px 3px rgba(0,0,0,0.1); }
+        .journal-date { font-family: 'Special Elite', cursive; font-size: 0.8rem; color: #5d4037; position: absolute; top: 20px; right: 25px; }
+        .sticker { position: absolute; font-size: 45px; opacity: 0.4; z-index: 1; pointer-events: none; }
+        .hint { position: fixed; bottom: 15px; font-family: 'Special Elite'; font-size: 0.8rem; opacity: 0.7; color: #3e2723; width: 100%; text-align: center; pointer-events: none; }
     </style>
 </head>
 <body>
 
 <audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    <source src="nhac.mp3" type="audio/mpeg">
 </audio>
 
 <div class="notebook-container">
-    <div class="spine-rings"><script>for(let i=0; i<12; i++) document.write('<div class="ring"></div>');</script></div>
+    <div class="spine-rings"><script>for(let i=0; i<11; i++) document.write('<div class="ring"></div>');</script></div>
     <div class="book" id="scrapbook">
-        <div class="page">
+        <div class="page" style="z-index: 100;">
             <div class="front cover-front">
-                <div class="cover-box">
-                    <h1 style="font-family:'Dancing Script'; font-size:2.5rem; margin:0; color:#582f0e;">Memories</h1>
-                    <p style="font-family:'Special Elite'; font-size:0.7rem; letter-spacing:2px; color:#582f0e;">8 MARCH . JOURNAL</p>
+                <div class="cover-ribbon"></div>
+                <div class="cover-title-box">
+                    <h1 style="font-family:'Charm'; font-size:4.5rem; margin:0; color:#3e2723;">Memories</h1>
+                    <p style="font-family:'Special Elite'; font-size:1rem; letter-spacing:5px; color:#3e2723;">VOLUME 08.03.2026</p>
                 </div>
+                <p style="margin-top:35px; font-family:'Charm'; font-size:1.6rem; color:#3e2723; font-weight:700;">Dành cho người bạn cơ cực ❤️</p>
             </div>
-            <div class="back" id="p-back-0"></div>
+            <div class="back"></div>
         </div>
     </div>
 </div>
 
-<div class="hint">TAP LỀ PHẢI ĐỂ TIẾN - LỀ TRÁI ĐỂ LÙI</div>
+<div class="hint">CHẠM LỀ PHẢI ĐỂ TIẾN - LỀ TRÁI ĐỂ QUAY LẠI</div>
 
 <script>
-    // --- 1. DÁN LINK ẢNH TỪ POSTIMAGES VÀO ĐÂY ---
-    const myPhotos = [
-        "https://picsum.photos/seed/1/150/150", 
-        "https://picsum.photos/seed/2/150/150", 
-        "https://picsum.photos/seed/3/150/150", 
-        "https://picsum.photos/seed/4/150/150"
-    ];
+    const myPhotos = {
+        p2: "1.jpg", p3: "2.jpg", p4: "3.jpg", p5: "4.jpg", p6: "5.jpg", p7: "6.jpg",
+        p8: "7.jpg", p9: "8.jpg", p10: "9.jpg", p11: "10.jpg", p12: "11.jpg", p13: "12.jpg",
+        p14: "13.jpg", p15: "14.jpg", p16: "15.jpg", p17: "16.jpg", p18: "17.jpg", p19: "18.jpg",
+        p20: "19.jpg", p21: "20.jpg", p22: "21.jpg", p23: "22.jpg"
+    };
 
-    // --- 2. CÁC CÂU CẢM NGHĨ ---
-    const journalThoughts = [
+    const thoughts = [
         "Một người bạn tốt và tận tâm như tôi thật sự rất hiếm trên đời.",
-        "Vì vậy nhớ nhé, sau này mà giàu rồi thì chuyển cho tôi một công ty là được, coi như trả trước tiền “tình nghĩa kiếp sau”.",
+        "Vì vậy nhớ nhé, giàu rồi thì chuyển cho tôi một công ty là được, coi như trả tiền tình nghĩa kiếp sau.",
         "Đây là bạn tôi, một con người có tuổi thơ vô cùng “cơ cực”.",
-        "Ngay từ nhỏ đã không có chồng. Đến khi ba mẹ kết hôn cũng không thèm hỏi ý kiến cô ấy một câu. Ngày chào đời thì vốn liếng bằng đúng bằng Không.",
-        "Suốt một năm trời còn không nói chuyện được với ai, ngày nào cũng chỉ biết lấy nước mắt rửa mặt. Nghĩ lại đúng là hành trình trưởng thành đầy gian nan.",
-        "Chỉ tiếc là lúc đó tôi và cô ấy chưa quen nhau. Nếu có kiếp sau, dù phải bò thì tôi cũng bò tới bên bạn để che nắng che mưa cho bạn."
+        "Ngay từ nhỏ đã không có chồng. Đến khi ba mẹ kết hôn cũng không thèm hỏi ý kiến cô ấy một câu.",
+        "Ngày chào đời thì vốn liếng bằng đúng bằng Không.",
+        "Suốt một năm trời còn không nói chuyện được với ai, ngày nào cũng chỉ biết lấy nước mắt rửa mặt.",
+        "Nghĩ lại đúng là hành trình trưởng thành đầy gian nan.",
+        "Chỉ tiếc là lúc đó tôi và cô ấy chưa quen nhau.",
+        "Nếu có kiếp sau, dù phải bò thì tôi cũng bò tới bên bạn để che nắng che mưa cho bạn.",
+        "Dịu dàng là một loại sức mạnh, và bạn là người sở hữu nó một cách hoàn hảo nhất.",
+        "Mọi giấc mơ của em đều xứng đáng thành hiện thực.",
+        "Chúc em một ngày 8/3 rạng rỡ như nắng mai.",
+        "Bình yên là khi ta biết trân trọng những gì mình đang có.",
+        "Cảm ơn em đã luôn là một phần tuyệt vời trong câu chuyện của anh.",
+        "Hãy cứ tỏa sáng theo cách của riêng em nhé.",
+        "Thế giới này đôi khi rất ồn ào, nhưng bên cạnh anh, em sẽ thấy bình yên.",
+        "Mong em giữ mãi nét hồn nhiên này trên môi.",
+        "Sức khỏe và thành công sẽ luôn gọi tên em.",
+        "Bạn là đóa hoa rực rỡ nhất mà tôi từng gặp.",
+        "Mọi vất vả hôm nay sẽ hóa thành trái ngọt ngày mai.",
+        "Hãy luôn tin vào bản thân mình như cách tôi tin bạn.",
+        "Yêu thương đong đầy cho ngày hôm nay và mãi về sau."
     ];
 
-    const shortHand = ["Hạnh phúc.", "Bình yên.", "Mãi bên nhau bạn nhé.", "Tuyệt vời nhất!", "Bạn là số một."];
-    const stickers = ["🌸", "✨", "🍃", "🌷", "🦋", "☀️", "💖"];
+    const shortHand = ["Hạnh phúc.", "Bình yên.", "Mãi bên nhau.", "Tuyệt nhất!", "Thương lắm.", "Cười lên nhé."];
+    const decoIcons = ["🌿", "✨", "☕", "📜", "🎈", "Tulip", "🦋", "☀️", "💖"];
+    const tapeColors = ["rgba(251, 111, 146, 0.4)", "rgba(141, 110, 99, 0.4)", "rgba(212, 163, 115, 0.4)"];
 
-    function createPetals() {
-        for (let i = 0; i < 15; i++) {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.width = petal.style.height = Math.random() * 10 + 8 + 'px';
-            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
-            document.body.appendChild(petal);
-        }
-    }
+    function createPetals() { for (let i = 0; i < 20; i++) { const petal = document.createElement('div'); petal.className = 'petal'; petal.style.left = Math.random() * 100 + 'vw'; petal.style.width = petal.style.height = Math.random() * 12 + 8 + 'px'; petal.style.animationDuration = Math.random() * 6 + 6 + 's'; petal.style.animationDelay = Math.random() * 5 + 's'; document.body.appendChild(petal); } }
     createPetals();
 
-    function generateContent(index) {
-        const sections = [1, 2, 3].sort(() => Math.random() - 0.5);
-        let html = `<div class="journal-date">March 8, 2026 | P.${index}</div>`;
+    function generateContent(pIdx) {
+        // TÍNH TOÁN VÙNG AN TOÀN ĐỂ RANDOM KHÔNG ĐÈ NHAU
+        const isLeftPage = pIdx % 2 === 0;
+        const sidePadding = isLeftPage ? "left:25px" : "right:25px";
+        const oppositeSide = isLeftPage ? "right:25px" : "left:25px";
+        
+        const isPhotoTop = Math.random() > 0.5;
+        const photoY = isPhotoTop ? (8 + Math.random() * 5) : (50 + Math.random() * 5);
+        const textY = isPhotoTop ? (58 + Math.random() * 5) : (12 + Math.random() * 5);
+        const handY = 82 + Math.random() * 3;
 
-        sections.forEach((section, i) => {
-            const top = 15 + (i * 25) + (Math.random() * 5);
-            const side = Math.random() > 0.5 ? 'left:15%' : 'right:10%';
-            const rot = Math.random() * 8 - 4;
-
-            if (section === 1) {
-                html += `<div class="item polaroid" style="top:${top}%; right:12%; width:130px; transform:rotate(${rot}deg)">
-                            <img src="${myPhotos[index % myPhotos.length]}">
-                            <p style="font-family:'Special Elite'; font-size:0.5rem; margin:5px 0 0 0;">Lovely Day</p>
-                         </div>`;
-            } else if (section === 2) {
-                html += `<div class="item typewriter-black" style="top:${top}%; left:15%; transform:rotate(${rot/2}deg)">
-                            ${journalThoughts[index % journalThoughts.length]}
-                         </div>`;
-            } else {
-                html += `<div class="item handwritten" style="top:${top+5}%; left:20%; transform:rotate(${rot}deg)">
-                            ${shortHand[index % shortHand.length]}
-                         </div>`;
-            }
-        });
-        html += `<div class="sticker" style="top:${Math.random()*70+10}%; left:${Math.random()*70}%;">${stickers[index % stickers.length]}</div>`;
+        let html = `<div class="journal-date">P.${pIdx} | MARCH 2026</div>`;
+        const tapeColor = tapeColors[Math.floor(Math.random() * tapeColors.length)];
+        
+        // 1. Polaroid - LUÔN Ở VÙNG TRÊN
+        html += `<div class="item polaroid" style="top:${photoY}%; ${sidePadding}; transform:rotate(${Math.random()*12-6}deg);">
+                    <div class="washi-tape" style="top:-15px; left:30%; background:${tapeColor}; transform:rotate(${Math.random()*20-10}deg);"></div>
+                    <img src="${myPhotos["p" + pIdx] || '1.jpg'}">
+                    <p style="font-family:'Special Elite'; font-size:0.75rem; margin:10px 0 0 0;">LOVELY DAY</p>
+                 </div>`;
+        
+        // 2. Chữ đen - LUÔN BẮT ĐẦU TỪ GIỮA TRỞ XUỐNG
+        html += `<div class="item typewriter-black" style="${L.tw}; transform:rotate(${Math.random()*4-2}deg); text-align:${isLeftPage ? 'right' : 'left'}">${thoughts[pIdx - 2] || thoughts[0]}</div>`;
+        
+        // 3. Chữ hồng - Ở DƯỚI CÙNG
+        html += `<div class="item handwritten" style="top:${handY}%; ${sidePadding}; transform:rotate(${Math.random()*10-5}deg);">${shortHand[pIdx % shortHand.length]}</div>`;
+        
+        // 4. Icons trang trí ngẫu nhiên
+        for(let i=0; i<2; i++) {
+            html += `<div class="item" style="top:${Math.random()*80+10}%; left:${Math.random()*80}%; font-size:30px; opacity:0.3; z-index:1;">${decoIcons[Math.floor(Math.random()*decoIcons.length)]}</div>`;
+        }
+        
         return html;
     }
 
@@ -125,31 +168,31 @@
     for(let i=1; i<=11; i++) {
         const page = document.createElement('div');
         page.className = 'page';
+        page.style.zIndex = 100 - i;
         page.innerHTML = `<div class="front">${generateContent(i*2)}</div><div class="back">${generateContent(i*2+1)}</div>`;
         scrapbook.appendChild(page);
     }
 
+    // TRANG KẾT NÂNG CẤP HOÀN HẢO THEO YÊU CẦU
     const last = document.createElement('div');
     last.className = 'page';
-    last.innerHTML = `<div class="front" style="background:#fb6f92;color:white;display:flex;justify-content:center;align-items:center;border-radius:0 15px 15px 0;"><h1>Chúc bạn tất cả, Trừ vất vả ❤️</h1></div><div class="back" style="background:#faedcd;display:flex;justify-content:center;align-items:center;border-radius:15px 0 0 15px;"><h1>Chúc mừng ngày 8/3!</h1></div>`;
+    last.innerHTML = `<div class="front" style="background:#fb6f92; color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border-radius:0 15px 15px 0; padding: 30px;">
+            <div class="washi-tape" style="top:20px; background:rgba(255,255,255,0.3); transform:rotate(-5deg);"></div>
+            <h2 style="font-family:'Charm'; font-size:8rem; margin:0 0 15px 0; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Happy 8/3! ❤️</h2>
+            <p style="font-family:'Special Elite'; font-size:1.5rem; color:rgba(255,255,255,0.9); margin:0;">chúc bạn tất cả trừ vất vả</p>
+        </div><div class="back" style="background:#faedcd; border-radius:15px 0 0 15px;"></div>`;
     scrapbook.appendChild(last);
 
     const pages = document.querySelectorAll('.page');
     pages.forEach((page, index) => {
-        page.style.zIndex = pages.length - index;
-        
         page.addEventListener('click', (e) => {
             document.getElementById('bgMusic').play();
-            const clickX = e.clientX - page.getBoundingClientRect().left;
-            const pageWidth = page.offsetWidth;
-
-            // Nếu chạm lề trái (35%) và đang lật -> Quay lại
-            if (clickX < pageWidth * 0.35 && page.classList.contains('flipped')) {
+            const rect = page.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            if (clickX < rect.width * 0.4 && page.classList.contains('flipped')) {
                 page.classList.remove('flipped');
-                setTimeout(() => { page.style.zIndex = pages.length - index; }, 750);
-            } 
-            // Nếu chạm lề phải/giữa -> Tiến tới
-            else if (clickX >= pageWidth * 0.35 && !page.classList.contains('flipped')) {
+                setTimeout(() => { page.style.zIndex = 100 - index; }, 800);
+            } else if (clickX > rect.width * 0.4 && !page.classList.contains('flipped')) {
                 page.classList.add('flipped');
                 page.style.zIndex = 100 + index;
             }
@@ -158,4 +201,3 @@
 </script>
 </body>
 </html>
-
