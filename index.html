@@ -8,7 +8,7 @@
     <style>
         :root { 
             --bg: #d7ccc8; 
-            --paper: rgba(255, 252, 242, 0.90); /* TĂNG ĐỘ TRONG của trang giấy */
+            --paper: rgba(255, 252, 242, 0.90); 
             --pink-accent: #fb6f92; 
         }
 
@@ -143,17 +143,17 @@
         let html = `<div class="journal-date">P.${pIdx} | MARCH 2026</div>`;
         const tapeColor = tapeColors[Math.floor(Math.random() * tapeColors.length)];
         
-        // 1. Polaroid - LUÔN Ở VÙNG TRÊN
+        // 1. Polaroid - LUÔN Ở VÙNG TRÊN HOẶC DƯỚI RÕ RÀNG
         html += `<div class="item polaroid" style="top:${photoY}%; ${sidePadding}; transform:rotate(${Math.random()*12-6}deg);">
                     <div class="washi-tape" style="top:-15px; left:30%; background:${tapeColor}; transform:rotate(${Math.random()*20-10}deg);"></div>
                     <img src="${myPhotos["p" + pIdx] || '1.jpg'}">
                     <p style="font-family:'Special Elite'; font-size:0.75rem; margin:10px 0 0 0;">LOVELY DAY</p>
                  </div>`;
         
-        // 2. Chữ đen - LUÔN BẮT ĐẦU TỪ GIỮA TRỞ XUỐNG
-        html += `<div class="item typewriter-black" style="${L.tw}; transform:rotate(${Math.random()*4-2}deg); text-align:${isLeftPage ? 'right' : 'left'}">${thoughts[pIdx - 2] || thoughts[0]}</div>`;
+        // 2. Chữ đen - LUÔN KHÁC VÙNG VỚI ẢNH (ĐÃ SỬA LỖI BIẾN L)
+        html += `<div class="item typewriter-black" style="top:${textY}%; ${oppositeSide}; transform:rotate(${Math.random()*4-2}deg); text-align:${isLeftPage ? 'right' : 'left'}">${thoughts[pIdx - 2] || thoughts[0]}</div>`;
         
-        // 3. Chữ hồng - Ở DƯỚI CÙNG
+        // 3. Chữ hồng - Ở GÓC DƯỚI CÙNG
         html += `<div class="item handwritten" style="top:${handY}%; ${sidePadding}; transform:rotate(${Math.random()*10-5}deg);">${shortHand[pIdx % shortHand.length]}</div>`;
         
         // 4. Icons trang trí ngẫu nhiên
@@ -173,13 +173,13 @@
         scrapbook.appendChild(page);
     }
 
-    // TRANG KẾT NÂNG CẤP HOÀN HẢO THEO YÊU CẦU
+    // TRANG KẾT ĐƯỢC PHÓNG TO VÀ THÊM CÂU CHÚC YÊU CẦU
     const last = document.createElement('div');
     last.className = 'page';
     last.innerHTML = `<div class="front" style="background:#fb6f92; color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border-radius:0 15px 15px 0; padding: 30px;">
             <div class="washi-tape" style="top:20px; background:rgba(255,255,255,0.3); transform:rotate(-5deg);"></div>
-            <h2 style="font-family:'Charm'; font-size:8rem; margin:0 0 15px 0; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Happy 8/3! ❤️</h2>
-            <p style="font-family:'Special Elite'; font-size:1.5rem; color:rgba(255,255,255,0.9); margin:0;">chúc bạn tất cả trừ vất vả</p>
+            <h2 style="font-family:'Charm'; font-size:6.5rem; margin:0 0 15px 0; line-height: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Happy<br>8/3!</h2>
+            <p style="font-family:'Special Elite'; font-size:1.5rem; color:rgba(255,255,255,0.9); margin-top:10px;">chúc bạn tất cả,<br>trừ vất vả ❤️</p>
         </div><div class="back" style="background:#faedcd; border-radius:15px 0 0 15px;"></div>`;
     scrapbook.appendChild(last);
 
